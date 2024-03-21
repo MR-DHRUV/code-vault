@@ -1,0 +1,12 @@
+.mybg {
+    background-color: #e7e7e7;
+}
+
+.body{
+    height: 100vh !important;
+    background-color: #f8f9fa;
+}
+
+.pointer{
+    cursor: pointer !important;
+}
