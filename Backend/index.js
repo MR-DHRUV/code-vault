@@ -7,10 +7,22 @@ const bodyparser = require('body-parser');
 const { body, validationResult } = require('express-validator');
 const RecordStore = require('./models/record');
 const redis = require('redis');
+const fetch = require('node-fetch');
+
+const allowedOrigins = ['https://code-vault-mr-dhruv.vercel.app', 'code-vault-mr-dhruv.vercel.app', 'http://code-vault-mr-dhruv.vercel.app/', 'https://code-vault-three.vercel.app/'];
 
 app.use(bodyparser.json()); // support json encoded bodies
 app.use(bodyparser.urlencoded({ extended: true })); // support encoded bodies
-app.use(cors()); // support cross-origin requests
+app.use(cors({
+    origin: function (origin, callback) {
+        // Check if the origin is in the allowed list or if it's undefined (for server-to-server requests)
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(null, false);
+        }
+    }
+}));
 
 // connect to database
 connectToMongo();
@@ -73,12 +85,8 @@ app.post('/record', [
         let output;
         try {
             // fetch output from judge0 api
-            const response = await fetch("https://judge0-ce.p.rapidapi.com/submissions?wait=true", {
+            const response = await fetch("https://judge0-ce.p.rapidapi.com/submissions?wait=true&base64_encoded=false", {
                 method: 'POST',
-                params: {
-                    base64_encoded: 'false',
-                    fields: '*'
-                },
                 headers: {
                     'content-type': 'application/json',
                     'Content-Type': 'application/json',
@@ -93,7 +101,7 @@ app.post('/record', [
             });
 
             const data = await response.json();
-            
+
             if (data.error) {
                 output = data.error;
             }
