@@ -9,7 +9,7 @@ export default function Home() {
 
     // Fetch data from server
     const fetchData = async () => {
-        const response = await fetch(`http://localhost:5000/`, {
+        const response = await fetch(`https://code-vault.azurewebsites.net/`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

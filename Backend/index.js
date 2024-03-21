@@ -72,7 +72,6 @@ app.post('/record', [
 
         let output;
         try {
-
             // fetch output from judge0 api
             const response = await fetch("https://judge0-ce.p.rapidapi.com/submissions?wait=true", {
                 method: 'POST',

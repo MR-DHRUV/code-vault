@@ -9,6 +9,14 @@ import { javascript } from "@codemirror/lang-javascript";
 import { useRouter } from 'next/navigation';
 import swal from 'sweetalert';
 
+// hey copilot
+// suggest a name for this app
+// want something ending with fy
+// code wizard, xCode
+// something like that
+// codeify
+// some other name
+
 
 export default function Home() {
 
@@ -54,7 +62,7 @@ export default function Home() {
         }
 
         // send data to server
-        const post = await fetch("http://localhost:5000/record", {
+        const post = await fetch("https://code-vault.azurewebsites.net/record", {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
